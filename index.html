@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script>
+(function(){
+  // V39 PRIVATE WEB: aggressively clear legacy JARVIS storage so this release starts clean.
+  try{
+    const names=[];
+    for(let i=0;i<localStorage.length;i++){ const k=localStorage.key(i); if(k) names.push(k); }
+    for(const k of names){ if(/jarvis|gmail|openai|conversation|memory|chat|telemetry|pc|history/i.test(k)) localStorage.removeItem(k); }
+    const sn=[];
+    for(let i=0;i<sessionStorage.length;i++){ const k=sessionStorage.key(i); if(k) sn.push(k); }
+    for(const k of sn){ if(/jarvis|gmail|openai|conversation|memory|chat|telemetry|pc|history/i.test(k)) sessionStorage.removeItem(k); }
+  }catch(e){}
+})();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JARVIS AI — Private Web Edition</title>
+<style>
+:root{--bg:#071018;--panel:#0d1722;--panel2:#101d29;--line:#203241;--text:#e9f3fb;--muted:#8fa7b8;--accent:#53d7ff;--accent2:#8ef0ff;--danger:#ff7485;--ok:#6df3a3;--shadow:0 20px 60px rgba(0,0,0,.35)}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 20% 0%,#112635 0,#071018 42%,#04080c 100%);color:var(--text);font-family:Inter,Segoe UI,Arial,sans-serif;min-height:100vh}
+button,input,textarea,select{font:inherit}button{cursor:pointer}.app{display:grid;grid-template-columns:250px 1fr;min-height:100vh}.side{border-right:1px solid var(--line);background:rgba(5,12,18,.84);backdrop-filter:blur(16px);padding:18px}.brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.12em;margin-bottom:18px}.orb{width:34px;height:34px;border-radius:50%;border:1px solid var(--accent);box-shadow:0 0 26px rgba(83,215,255,.25) inset,0 0 18px rgba(83,215,255,.18)}.nav{display:grid;gap:8px}.nav button{border:1px solid transparent;background:transparent;color:var(--muted);text-align:left;padding:11px 12px;border-radius:10px}.nav button:hover,.nav button.active{background:var(--panel2);color:var(--text);border-color:var(--line)}.privacy{margin-top:18px;padding:12px;border:1px solid #29404f;border-radius:10px;color:var(--muted);font-size:12px;line-height:1.5}.main{display:flex;flex-direction:column;min-width:0}.top{height:64px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:rgba(7,16,24,.7);backdrop-filter:blur(14px)}.status{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px}.dot{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 10px rgba(109,243,163,.5)}.content{padding:22px;max-width:1200px;width:100%;margin:0 auto}.panel{background:linear-gradient(180deg,rgba(16,29,41,.92),rgba(9,19,28,.92));border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}.hero{padding:22px;display:grid;grid-template-columns:1.5fr 1fr;gap:18px}.eyebrow{color:var(--accent);font-size:12px;font-weight:700;letter-spacing:.16em}.hero h1{margin:8px 0;font-size:34px}.hero p{color:var(--muted);line-height:1.6}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px}.card{padding:16px}.card h3{margin:0 0 8px}.big{font-size:26px;font-weight:800}.muted{color:var(--muted)}.tab{display:none}.tab.active{display:block}.chat{display:grid;grid-template-rows:1fr auto;min-height:650px}.messages{padding:18px;overflow:auto;max-height:66vh}.msg{padding:12px 14px;border:1px solid var(--line);border-radius:12px;margin-bottom:10px;white-space:pre-wrap;line-height:1.5}.msg.user{background:#102432}.msg.ai{background:#0b151f}.composer{border-top:1px solid var(--line);padding:14px;display:grid;gap:10px}.composer textarea{width:100%;min-height:90px;resize:vertical;background:#08121a;color:var(--text);border:1px solid var(--line);border-radius:12px;padding:12px}.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.btn{border:1px solid var(--line);background:#0b1620;color:var(--text);padding:10px 13px;border-radius:10px}.btn:hover{border-color:#3b596c}.btn.primary{background:rgba(83,215,255,.11);border-color:rgba(83,215,255,.45);color:var(--accent2)}.btn.danger{color:var(--danger)}.attach{display:none}.attachments{display:flex;flex-wrap:wrap;gap:8px}.pill{padding:7px 9px;border:1px solid var(--line);border-radius:999px;color:var(--muted);font-size:12px}.settings{display:grid;gap:14px}.field{display:grid;gap:7px}.field label{font-size:12px;color:var(--muted)}.field input,.field select{background:#08121a;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:10px}.notice{padding:12px;border:1px solid #334452;border-radius:12px;color:var(--muted);line-height:1.5;font-size:13px}.screen{display:grid;gap:14px}.screen video{width:100%;background:#03070a;border:1px solid var(--line);border-radius:14px;max-height:62vh}.hidden{display:none}@media(max-width:850px){.app{grid-template-columns:1fr}.side{display:none}.hero{grid-template-columns:1fr}.cards{grid-template-columns:1fr}.content{padding:12px}.top{padding:0 12px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="side">
+    <div class="brand"><div class="orb"></div><div>JARVIS</div></div>
+    <div class="nav">
+      <button data-tab="home" class="active">Home</button>
+      <button data-tab="chat">AI GPT</button>
+      <button data-tab="screen">Screen Assist</button>
+      <button data-tab="settings">Settings</button>
+      <button data-tab="about">About</button>
+    </div>
+    <div class="privacy"><b>Private web edition</b><br>Starts clean. No personal profile, PC telemetry, Gmail data, prior chats, or stored API key are loaded into this release.</div>
+  </aside>
+  <main class="main">
+    <header class="top"><div><b>JARVIS AI</b><span class="muted"> · Private Web Edition</span></div><div class="status"><span class="dot"></span><span id="statusText">READY</span></div></header>
+    <div class="content">
+      <section id="tab-home" class="tab active">
+        <div class="panel hero">
+          <div><div class="eyebrow">PUBLIC-SHARE BUILD</div><h1>Clean JARVIS Web</h1><p>This one-release privacy build intentionally removes personal profile displays and local-device dashboards. It is designed to be safe to publish as a static website.</p><div class="row"><button class="btn primary" data-tab="chat">Open AI GPT</button><button class="btn" data-tab="screen">Start Screen Assist</button></div></div>
+          <div class="panel" style="padding:18px"><div class="muted">Runtime</div><div class="big">WEB ONLY</div><div class="muted" style="margin-top:8px">No localhost bridge required</div></div>
+        </div>
+        <div class="cards"><div class="panel card"><h3>Private</h3><div class="muted">No name, city/state, IP display, personal profile, PC specs, Gmail inbox, or old memory is shown by this UI.</div></div><div class="panel card"><h3>Chat</h3><div class="muted">Upload images or supported text files directly into the current conversation.</div></div><div class="panel card"><h3>Screen Assist</h3><div class="muted">Browser-controlled screen sharing with explicit user permission.</div></div></div>
+      </section>
+      <section id="tab-chat" class="tab"><div class="panel chat"><div id="messages" class="messages"></div><div class="composer"><div id="attachments" class="attachments"></div><textarea id="prompt" placeholder="Ask JARVIS anything..."></textarea><div class="row"><label class="btn" for="fileInput">Attach files/images</label><input id="fileInput" class="attach" type="file" multiple accept="image/*,.txt,.md,.json,.csv,.js,.ts,.html,.css,.py,.java,.c,.cpp,.h,.hpp,.xml,.yaml,.yml,.log"><button id="sendBtn" class="btn primary">Send</button><button id="clearBtn" class="btn danger">Clear chat</button><span class="muted" style="font-size:12px">End a message with “don't read this” to suppress voice.</span></div></div></div></section>
+      <section id="tab-screen" class="tab"><div class="panel screen" style="padding:18px"><div><h2 style="margin:0 0 6px">Real-time Screen Assist</h2><div class="muted">Your browser will ask which screen/window to share. JARVIS does not get access until you approve it.</div></div><div class="row"><button id="startScreen" class="btn primary">Start screen sharing</button><button id="stopScreen" class="btn">Stop</button></div><video id="screenVideo" autoplay muted playsinline></video><div id="screenState" class="notice">Screen capture is off.</div></div></section>
+      <section id="tab-settings" class="tab"><div class="panel settings" style="padding:18px"><h2 style="margin:0">Settings</h2><div class="field"><label>OpenAI API key (stored only in this browser session)</label><input id="apiKey" type="password" placeholder="sk-…"></div><div class="field"><label>Model</label><select id="model"><option value="gpt-5.6">GPT-5.6</option><option value="gpt-5.6-sol">GPT-5.6 Sol</option><option value="gpt-5.6-luna">GPT-5.6 Luna</option></select></div><div class="notice">For a public site, never embed a shared API key in the source. Each visitor should supply their own key or use a server-side proxy you control.</div><div class="row"><button id="saveSettings" class="btn primary">Save for this session</button><button id="wipeSettings" class="btn danger">Wipe key & chat</button></div></div></section>
+      <section id="tab-about" class="tab"><div class="panel" style="padding:18px"><h2>About this build</h2><p class="muted">JARVIS-AI-v39 Private Web Edition. This version is intentionally isolated from earlier JARVIS browser state and does not load a personal identity profile or local PC dashboard.</p></div></section>
+    </div>
+  </main>
+</div>
+<script>
+(function(){
+  const $=s=>document.querySelector(s), $$=s=>Array.from(document.querySelectorAll(s));
+  const state={attachments:[],stream:null};
+  function setStatus(t){$('#statusText').textContent=t}
+  function showTab(name){$$('.tab').forEach(x=>x.classList.toggle('active',x.id==='tab-'+name));$$('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.tab===name))}
+  $$('.nav button,[data-tab]').forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.tab)));
+  function addMsg(role,text){const d=document.createElement('div');d.className='msg '+role;d.textContent=text;$('#messages').appendChild(d);d.scrollIntoView({block:'end'});return d}
+  addMsg('ai','JARVIS online. This is the private web edition. No personal profile or previous conversation is loaded.');
+  function suppressVoice(text){return /(?:don't|dont|do not)\s+read\s+(?:this|that)\s*(?:out loud|aloud)?$/i.test(text.trim())}
+  function speak(text){if(!('speechSynthesis' in window))return;speechSynthesis.cancel();speechSynthesis.speak(new SpeechSynthesisUtterance(text))}
+  function renderAttachments(){const wrap=$('#attachments');wrap.innerHTML='';state.attachments.forEach((f,i)=>{const p=document.createElement('div');p.className='pill';p.textContent=f.name+' · '+Math.round(f.size/1024)+' KB';p.title='Click to remove';p.onclick=()=>{state.attachments.splice(i,1);renderAttachments()};wrap.appendChild(p)})}
+  $('#fileInput').addEventListener('change',e=>{state.attachments=Array.from(e.target.files||[]);renderAttachments()});
+  async function readFile(f){if(f.type.startsWith('image/')){return {type:'image',name:f.name,url:await new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result);r.onerror=rej;r.readAsDataURL(f)})};}const text=await f.text();return {type:'text',name:f.name,text:text.slice(0,20000)}}
+  async function send(){const input=$('#prompt');const text=input.value.trim();if(!text)return;input.value='';addMsg('user',(state.attachments.length?'[Attachments: '+state.attachments.map(x=>x.name).join(', ')+']\n':'')+text);const noVoice=suppressVoice(text);setStatus('THINKING');
+    let response='I can answer once an API key is configured in Settings.';
+    const key=$('#apiKey').value.trim();
+    const model=$('#model').value;
+    if(key){try{
+      const parts=[{type:'text',text:text}];
+      for(const f of state.attachments){const r=await readFile(f);if(r.type==='image')parts.push({type:'image_url',image_url:{url:r.url}});else parts.push({type:'text',text:'\nFILE '+r.name+'\n'+r.text});}
+      const payload={model:model,messages:[{role:'system',content:'You are JARVIS, a capable and honest AI assistant. Do not claim to have accessed a device, file, email account, or service unless the browser actually provided it. Do not expose personal data that is not supplied in the current conversation.'},{role:'user',content:parts}]};
+      const res=await fetch('https://api.openai.com/v1/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+key},body:JSON.stringify(payload)});const data=await res.json();if(!res.ok)throw new Error(data?.error?.message||('HTTP '+res.status));response=data.choices?.[0]?.message?.content||'No response returned.';
+    }catch(e){response='Connection error: '+e.message}}
+    addMsg('ai',response);setStatus('READY');if(!noVoice&&!/^Connection error:|^I can answer once/i.test(response))speak(response);state.attachments=[];renderAttachments();$('#fileInput').value='';
+  }
+  $('#sendBtn').addEventListener('click',send);$('#prompt').addEventListener('keydown',e=>{if(e.key==='Enter'&&(e.ctrlKey||e.metaKey)){e.preventDefault();send()}});$('#clearBtn').addEventListener('click',()=>{$('#messages').innerHTML='';addMsg('ai','Chat cleared. Private web edition is ready.')});
+  $('#saveSettings').addEventListener('click',()=>setStatus($('#apiKey').value.trim()?'KEY READY':'READY'));
+  $('#wipeSettings').addEventListener('click',()=>{ $('#apiKey').value=''; $('#messages').innerHTML=''; state.attachments=[]; renderAttachments(); try{localStorage.clear();sessionStorage.clear()}catch(e){} addMsg('ai','API key and current chat wiped.');setStatus('READY') });
+  $('#startScreen').addEventListener('click',async()=>{try{if(!navigator.mediaDevices?.getDisplayMedia)throw new Error('Screen sharing is not supported by this browser.');state.stream=await navigator.mediaDevices.getDisplayMedia({video:true,audio:false});$('#screenVideo').srcObject=state.stream;$('#screenState').textContent='Screen sharing is active. You control what is shared.';showTab('screen');state.stream.getVideoTracks()[0].addEventListener('ended',()=>{state.stream=null;$('#screenVideo').srcObject=null;$('#screenState').textContent='Screen capture ended by the user.'})}catch(e){$('#screenState').textContent='Screen sharing was not started: '+e.message}});
+  $('#stopScreen').addEventListener('click',()=>{if(state.stream){state.stream.getTracks().forEach(t=>t.stop());state.stream=null}$('#screenVideo').srcObject=null;$('#screenState').textContent='Screen capture is off.'});
+})();
+</script>
+</body>
+</html>
