@@ -1,4 +1,4 @@
-name: Build JARVIS ZIP
+name: Build JARVIS V40 App ZIP
 
 on:
   push:
@@ -15,19 +15,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Build app ZIP
+      - name: Build V40 app ZIP
         run: |
-          rm -f JARVIS-AI-v39-private-web.zip
-          zip -9 JARVIS-AI-v39-private-web.zip index.html README.txt
+          rm -f JARVIS-AI-v40-clean-app.zip
+          zip -9 JARVIS-AI-v40-clean-app.zip index.html manifest.json sw.js README.txt
 
       - name: Commit ZIP
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add JARVIS-AI-v39-private-web.zip
+          git add JARVIS-AI-v40-clean-app.zip
           if git diff --cached --quiet; then
             echo "ZIP already up to date"
           else
-            git commit -m "Build V39 private web app ZIP"
+            git commit -m "Build V40 clean app ZIP"
             git push
           fi
