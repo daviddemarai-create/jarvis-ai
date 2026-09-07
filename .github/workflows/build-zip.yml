@@ -1,0 +1,33 @@
+name: Build JARVIS ZIP
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-zip:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build app ZIP
+        run: |
+          rm -f JARVIS-AI-v39-private-web.zip
+          zip -9 JARVIS-AI-v39-private-web.zip index.html README.txt
+
+      - name: Commit ZIP
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add JARVIS-AI-v39-private-web.zip
+          if git diff --cached --quiet; then
+            echo "ZIP already up to date"
+          else
+            git commit -m "Build V39 private web app ZIP"
+            git push
+          fi
