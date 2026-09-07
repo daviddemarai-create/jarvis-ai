@@ -1,7 +1,6 @@
-JARVIS AI — V39 Private Web Edition
+JARVIS AI V40 — CLEAN APP EDITION
 
-This repository contains the clean, public-share web build.
+App-like web build based on the V37/V38 command-center presentation.
+Personal profile, prior chats/memory, Gmail data, PC specs/telemetry and saved API keys are disabled for this public release.
 
-The GitHub Actions workflow builds JARVIS-AI-v39-private-web.zip from index.html and this README and commits the ZIP to main automatically.
-
-Website: https://daviddemarai-create.github.io/jarvis-ai/
+GitHub Pages serves this folder as the site root. The included manifest makes the site installable as a browser app where supported.
